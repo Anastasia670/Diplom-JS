@@ -72,7 +72,7 @@ function main(){
                 
             ivan.createUser((err, data) => {
             if (err) {
-            console.error('Error during creating Ivan')      
+            console.log('Error during creating Ivan')      
         } else{
             console.log(`User Ivan was created`);
             })
@@ -80,18 +80,27 @@ function main(){
 
             igor.createUser((err, data)=> {
                 if (err) {
-            console.error('Error during creating Igor')      
+            console.log('Error during creating Igor')      
         } else{
             console.log(`User Igor was created`);
             })
         }
         
 
-           ivan.addMoney({ currency: 'RUB', amount: 900 }, (err, data)=> {
+           ivan.addMoney({ currency: 'EUR', amount: 500000}, (err, data)=> {
         if (err) {
-            console.error('Error during adding money to Ivan');
+            console.log('Error during adding money to Ivan');
             } else {
-                console.log(`Added 500000 euros to Ivan`);
+                console.log(`Added 500000 EUR to Ivan`);
             });
           }
+
+          ivan.convertMoney({fromCurrency:'EUR', targetCurrency: 'NETCOIN', targetAmount: 10000},
+            (err, data)=>){
+            if (err) {
+                console.log('Error during convert money')
+            } else{ 
+            console.log('10000 EUR convert to NETCOIN') });
+          }
+
         }
