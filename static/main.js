@@ -1,26 +1,27 @@
 'use strict'
 
-class Profile{
-  constructor(username, name {firstName, lastName}, password){
-    this.username = username
-    this.name = name {firstName, lastName}
-    this.password = password
+
+
+class Profile { constructor({   username,   name: {firstName,lastName}, password    }) {
+
+    this.username = username;
+        this.name = {firstName, lastName};
+        this.password = password;
     }
+    
      createUser (callback){
-     	return ApiConnector.createUser({
-            username: this.username
+        return ApiConnector.createUser({
+            username: this.username,
             name: this.name,
             password: this.password,
         }), (err, data) =>{console.log(`User ${username} created`)};
         callback(err, data);
      }
      
-    autorizeUser ({ username, password }, callback){
-        return ApiConnector.perfomeLogin({username, password}, (err, data)=>{
-            console.log (`Autorisation for ${username} is completed`);
-            callback(err, data)
-        }
-    }
+    autorizeUser ({username, password }, callback){
+        return ApiConnector.perfomeLogin({username, password}, (err, data)=>{ console.log (`Autorisation for ${username} is completed`)})
+            callback(err, data);
+            }
 
     addMoney({ currency, amount }, callback) {
         return ApiConnector.addMoney({ currency, amount }, (err, data) => {
@@ -41,19 +42,8 @@ class Profile{
         return ApiConnector.transferMoney ({ to, amount },(err, data)=>{
             console.log(`${amount} transfered to ${to}`);
             callback(err, data);
-            });
-        }
-
-        function getStocks(){
-            return  ApiConnector.getStocks((err, data) =>{
-        if (err) {
-            console.log('Error');
-        } else {
-            console.log('Getting stocks info');
-        }
-    });
-      
-    }
+            })};
+     
 }
 
 function main(){
@@ -72,26 +62,26 @@ function main(){
                 
             ivan.createUser((err, data) => {
             if (err) {
-            console.log('Error during creating Ivan')      
+            console.log(`Error during creating ${this.username}`)      
         } else{
-            console.log(`User Ivan was created`);
+            console.log(`User ${this.username} was created`);
             })
         }
 
             igor.createUser((err, data)=> {
                 if (err) {
-            console.log('Error during creating Igor')      
+            console.log(`Error during creating ${this.username}`)      
         } else{
-            console.log(`User Igor was created`);
+            console.log(`User ${this.username} was created`);
             })
         }
         
 
            ivan.addMoney({ currency: 'EUR', amount: 500000}, (err, data)=> {
         if (err) {
-            console.log('Error during adding money to Ivan');
+            console.log(`Error during adding money to ${this.username}`);
             } else {
-                console.log(`Added 500000 EUR to Ivan`);
+                console.log(`Added ${amount} ${currency} to ${this.username}`);
             });
           }
 
@@ -100,7 +90,15 @@ function main(){
             if (err) {
                 console.log('Error during convert money')
             } else{ 
-            console.log('10000 EUR convert to NETCOIN') });
+            console.log(`${targetAmount} ${fromCurrency} convert to ${targetCurrency}`) });
           }
+
+          ivan.transferMoney({ to: 'Igor', amount: 10000 },(err, data)=>{
+          if (err){
+            console.log('Error during transfer money')
+        } else{
+            console.log(`${amount} transfer to ${to}`)
+          }
+        }
 
         }
