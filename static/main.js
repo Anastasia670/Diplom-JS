@@ -1,25 +1,29 @@
-'use strict'
+        
+       'use strict'
 
 
 
-class Profile { constructor({   username,   name: {firstName,lastName}, password    }) {
-
-    this.username = username;
+class Profile { constructor({   username,   name: {firstName,lastName}, password    }) 
+    
+    {
+        this.username = username;
         this.name = {firstName, lastName};
         this.password = password;
     }
     
-     createUser (callback){
+    createUser (callback){
         return ApiConnector.createUser({
             username: this.username,
             name: this.name,
             password: this.password,
-        }), (err, data) =>{console.log(`User ${username} created`)};
-        callback(err, data);
+        }, (err, data) =>{console.log(`User ${this.username} created`)});
+        callback (err, data);
+        
+     
      }
      
-    autorizeUser ({username, password }, callback){
-        return ApiConnector.perfomeLogin({username, password}, (err, data)=>{ console.log (`Autorisation for ${username} is completed`)})
+    autorizeUser (callback){
+        return ApiConnector.performLogin({username: this.username, password:this.password}, (err, data)=>{ console.log (`Autorisation for ${this.username} is completed`)})
             callback(err, data);
             }
 
@@ -47,8 +51,9 @@ class Profile { constructor({   username,   name: {firstName,lastName}, password
 }
 
 function main(){
-    const Ivan = new Profile({
-                    username: 'ivan',
+        
+        const Ivan = new Profile({
+                    username: 'ivan007',
                     name: { firstName: 'Ivan', lastName: 'Chernyshev' },
                     password: 'ivanspass',
                 })
@@ -59,46 +64,61 @@ function main(){
                     password: 'igorppass',
                 })
 
-                
-            ivan.createUser((err, data) => {
+           
+        console.log(Ivan) ;
+        console.log(Igor)  ;
+
+
+
+        Ivan.createUser((err, data) => {
             if (err) {
             console.log(`Error during creating ${this.username}`)      
         } else{
             console.log(`User ${this.username} was created`);
-            })
-        }
-
-            igor.createUser((err, data)=> {
-                if (err) {
-            console.log(`Error during creating ${this.username}`)      
-        } else{
-            console.log(`User ${this.username} was created`);
-            })
-        }
-        
-
-           ivan.addMoney({ currency: 'EUR', amount: 500000}, (err, data)=> {
+            }
+        }, 
+        Ivan.autorizeUser((err, data)=>{
+            if(err) {
+              console.log(`Error during autorization ${this.username}`)  
+            } else{
+                console.log(`User ${this.username} was autorizated`);
+            }
+        }),
+                Ivan.addMoney({ currency: 'EUR', amount: 500000}, (err, data)=> {
         if (err) {
-            console.log(`Error during adding money to ${this.username}`);
+            console.log(`Error during adding money`);
             } else {
                 console.log(`Added ${amount} ${currency} to ${this.username}`);
-            });
-          }
-
-          ivan.convertMoney({fromCurrency:'EUR', targetCurrency: 'NETCOIN', targetAmount: 10000},
-            (err, data)=>){
+            };
+          }),
+                       Ivan.convertMoney({fromCurrency:'EUR', targetCurrency: 'NETCOIN', targetAmount: 10000},
+            (err, data)=>{
             if (err) {
                 console.log('Error during convert money')
             } else{ 
-            console.log(`${targetAmount} ${fromCurrency} convert to ${targetCurrency}`) });
-          }
-
-          ivan.transferMoney({ to: 'Igor', amount: 10000 },(err, data)=>{
-          if (err){
+            console.log(`${targetAmount} ${fromCurrency} convert to ${targetCurrency}`) 
+        }
+        }),
+            Ivan.transferMoney({ to: 'Igor', amount: 10000 },(err, data)=>{
+        if (err){
             console.log('Error during transfer money')
         } else{
             console.log(`${amount} transfer to ${to}`)
           }
-        }
+        })
+   
+        );
 
-        }
+        Igor.createUser((err, data)=> {
+                if (err) {
+            console.log(`Error during creating ${this.username}`)      
+        } else{
+            console.log(`User ${this.username} was created`);
+            }
+        }, )
+
+        
+
+       }
+
+main();
