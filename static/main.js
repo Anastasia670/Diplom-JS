@@ -1,4 +1,4 @@
- 'use strict'
+'use strict'
 
 class Profile {
     constructor({username, name: {firstName, lastName}, password})
@@ -16,12 +16,12 @@ class Profile {
             username: this.username,
             name: this.name,
             password: this.password,
-
         }, (err,data)=>{
             console.log(`User ${this.username} created`)
         }
         );
         callback(err, data);
+
     }
 
     autorizeUser(callback) {
@@ -40,11 +40,10 @@ class Profile {
             currency,
             amount
         }, (err,data)=>{
-            console.log(`Adding ${amount} of ${currency} to ${this.username}`);
-            callback(err, data);
+            console.log(`Adding ${amount} of ${currency} to ${this.username}`)
         }
         );
-
+        callback(err, data);
     }
 
     convertMoney({fromCurrency, targetCurrency, targetAmount}, callback) {
@@ -54,11 +53,10 @@ class Profile {
             targetAmount
         }, (err,data)=>{
             console.log(`Convertation ${fromCurrency} to ${targetCurrency} completed, 
-                total: ${targetAmount} `);
-            callback(err, data);
+                total: ${targetAmount} `)
         }
         );
-
+        callback(err, data);
     }
 
     transferMoney({to, amount}, callback) {
@@ -66,12 +64,13 @@ class Profile {
             to,
             amount
         }, (err,data)=>{
-            console.log(`${amount} transfered to ${to}`);
-            callback(err, data);
+            console.log(`${amount} transfered to ${to}`)
         }
         )
+        callback(err, data);
     }
     ;
+
 }
 
 function main() {
@@ -101,31 +100,29 @@ function main() {
         if (err) {
             console.log(`Error during creating ${this.username}`)
         } else {
-            console.log(`User ${this.username} created`);
+            console.log(`User ${this.username} was created`);
         }
     }
-    ,
-    Ivan.autorizeUser((err,data)=>{
+    , Ivan.autorizeUser((err,data)=>{
         if (err) {
             console.log(`Error during autorization ${this.username}`)
         } else {
-            console.log(`Autorisation for ${this.username} is completed`);
+            console.log(`User ${this.username} was autorizated`);
         }
     }
-    ),
+    ,
     Ivan.addMoney({
         currency: 'EUR',
         amount: 500000
     }, (err,data)=>{
         if (err) {
-            console.log(`Error during adding money`);
+            console.log(`Error during adding money to ${this.username}`);
         } else {
-            console.log(`Adding ${amount} of ${currency} to ${this.username}`);
+            console.log(`Added ${amount} ${currency} to ${this.username}`);
         }
         ;
     }
-    ),
-    Ivan.convertMoney({
+    , Ivan.convertMoney({
         fromCurrency: 'EUR',
         targetCurrency: 'NETCOIN',
         targetAmount: 10000
@@ -133,33 +130,30 @@ function main() {
         if (err) {
             console.log('Error during convert money')
         } else {
-            console.log(`Convertation ${fromCurrency} to ${targetCurrency} completed, 
-                total: ${targetAmount} `)
+            console.log(`${targetAmount} ${fromCurrency} convert to ${targetCurrency}`)
         }
-
     }
-    ), Ivan.transferMoney({
+    , Ivan.transferMoney({
         to: 'Igor',
         amount: 10000
     }, (err,data)=>{
         if (err) {
             console.log('Error during transfer money')
         } else {
-            console.log(`${amount} transfered to ${to}`)
+            console.log(`${amount} transfer to ${to}`)
         }
     }
-    )
-    );
+    )))));
 
     Igor.createUser((err,data)=>{
         if (err) {
             console.log(`Error during creating ${this.username}`)
         } else {
-            console.log(`User ${this.username} created`);
+            console.log(`User ${this.username} was created`);
         }
     }
     )
 
 }
 
-main();
+main()
