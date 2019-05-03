@@ -1,15 +1,20 @@
 'use strict'
 
+
 class Profile {
     constructor({username, name: {firstName, lastName}, password})
     {
+
         this.username = username;
         this.name = {
             firstName,
             lastName
         };
+
         this.password = password;
     }
+
+
 
     createUser(callback) {
         return ApiConnector.createUser({
@@ -19,10 +24,12 @@ class Profile {
         }, (err,data)=>{
             console.log(`User ${this.username} created`)
         }
+
         );
         callback(err, data);
-
     }
+
+
 
     autorizeUser(callback) {
         return ApiConnector.performLogin({
@@ -35,6 +42,7 @@ class Profile {
         callback(err, data);
     }
 
+
     addMoney({currency, amount}, callback) {
         return ApiConnector.addMoney({
             currency,
@@ -42,9 +50,11 @@ class Profile {
         }, (err,data)=>{
             console.log(`Adding ${amount} of ${currency} to ${this.username}`)
         }
-        );
+                );
+
         callback(err, data);
     }
+
 
     convertMoney({fromCurrency, targetCurrency, targetAmount}, callback) {
         return ApiConnector.convertMoney({
@@ -59,6 +69,8 @@ class Profile {
         callback(err, data);
     }
 
+
+
     transferMoney({to, amount}, callback) {
         return ApiConnector.transferMoney({
             to,
@@ -68,13 +80,34 @@ class Profile {
         }
         )
         callback(err, data);
+
     }
     ;
+}
+
+function getStocks() {
+
+    return ApiConnector.getStocks( (err, data) => {
+
+        if (err) {
+
+            console.log('Failed to get stocks info');
+
+        } else {
+
+            console.log('Getting stocks info');
+            const wallet = data[data.length - 1];
+            console.log(wallet)
+             }
+   
+    })
 
 }
 
-function main() {
 
+getStocks()
+
+function main() {
     const Ivan = new Profile({
         username: 'ivan007',
         name: {
@@ -93,8 +126,10 @@ function main() {
         password: 'igorppass',
     })
 
+
     console.log(Ivan);
     console.log(Igor);
+
 
     Ivan.createUser((err,data)=>{
         if (err) {
@@ -102,15 +137,13 @@ function main() {
         } else {
             console.log(`User ${this.username} was created`);
         }
-    }
-    , Ivan.autorizeUser((err,data)=>{
+    }, Ivan.autorizeUser((err,data)=>{
         if (err) {
             console.log(`Error during autorization ${this.username}`)
         } else {
             console.log(`User ${this.username} was autorizated`);
         }
-    }
-    ,
+    },
     Ivan.addMoney({
         currency: 'EUR',
         amount: 500000
@@ -121,28 +154,27 @@ function main() {
             console.log(`Added ${amount} ${currency} to ${this.username}`);
         }
         ;
-    }
-    , Ivan.convertMoney({
+    }, 
+    Ivan.convertMoney({
         fromCurrency: 'EUR',
         targetCurrency: 'NETCOIN',
-        targetAmount: 10000
-    }, (err,data)=>{
+        targetAmount: 10000 }, (err,data)=>{
         if (err) {
             console.log('Error during convert money')
         } else {
             console.log(`${targetAmount} ${fromCurrency} convert to ${targetCurrency}`)
         }
-    }
-    , Ivan.transferMoney({
+    }, 
+    Ivan.transferMoney({
         to: 'Igor',
-        amount: 10000
-    }, (err,data)=>{
-        if (err) {
+        amount: 10000}, (err,data)=>{
+           if (err) {
             console.log('Error during transfer money')
         } else {
             console.log(`${amount} transfer to ${to}`)
         }
     }
+
     )))));
 
     Igor.createUser((err,data)=>{
@@ -153,7 +185,9 @@ function main() {
         }
     }
     )
-
 }
 
+
+
 main()
+
