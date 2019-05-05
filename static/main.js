@@ -31,7 +31,9 @@ class Profile {
         }, (err,data)=>{
 
             console.log(`User ${this.username} created`);
+
             callback(err, data);
+
         }
 
         );
@@ -48,7 +50,9 @@ class Profile {
         }, (err,data)=>{
 
             console.log(`Autorisation for ${this.username} is completed`);
+
             callback(err, data);
+
         }
 
         );
@@ -65,7 +69,9 @@ class Profile {
         }, (err,data)=>{
 
             console.log(`Adding ${amount} of ${currency} to ${this.username}`);
+
             callback(err, data);
+
         }
 
         );
@@ -85,8 +91,12 @@ class Profile {
 
             console.log(`Convertation ${fromCurrency} to ${targetCurrency} completed, 
 
+
+
                 total: ${targetAmount} `);
+
             callback(err, data);
+
         }
 
         );
@@ -103,12 +113,15 @@ class Profile {
         }, (err,data)=>{
 
             console.log(`${amount} transfered to ${to}`);
+
             callback(err, data);
+
         }
 
         );
 
     }
+
     ;
 
 }
@@ -132,6 +145,7 @@ function getStocks() {
         }
 
     }
+
     )
 
 }
@@ -141,88 +155,166 @@ getStocks()
 function main() {
 
     const Ivan = new Profile({
+
         username: 'ivan007',
+
         name: {
+
             firstName: 'Ivan',
+
             lastName: 'Chernyshev'
+
         },
+
         password: 'ivanspass',
+
     })
 
     const Igor = new Profile({
+
         username: 'igorek',
+
         name: {
+
             firstName: 'Igor',
+
             lastName: 'Nikitin'
+
         },
+
         password: 'igorppass',
+
     })
 
     console.log(Ivan);
+
     console.log(Igor);
 
     Ivan.createUser((err,data)=>{
+
         if (err) {
+
             console.log(`Error during creating User`)
+
         } else {
+
             console.log(`User was created`);
+
             Ivan.autorizeUser((err,data)=>{
+
                 if (err) {
+
                     console.log(`Error during autorization Uses`)
+
                 } else {
+
                     console.log(`User was autorizated`);
+
                     Ivan.addMoney({
+
                         currency: 'EUR',
+
                         amount: 500000
+
                     }, (err,data)=>{
+
                         if (err) {
+
                             console.log(`Error during adding money`);
+
                         } else {
+
                             console.log(`Money is added to User`);
+
                             Ivan.convertMoney({
+
                                 fromCurrency: 'EUR',
+
                                 targetCurrency: 'NETCOIN',
+
                                 targetAmount: 10000
+
                             }, (err,data)=>{
+
                                 if (err) {
+
                                     console.log('Error during convert money')
+
                                 } else {
+
                                     console.log(`Convertation is completed`);
-                                    Ivan.transferMoney({
-                                        to: 'Igor',
-                                        amount: 10000
-                                    }, (err,data)=>{
+                                    Igor.createUser((err,data)=>{
+
                                         if (err) {
-                                            console.log('Error during transfer money')
+
+                                            console.log(`Error during creating User`)
+
                                         } else {
-                                            console.log(`Money transfed to Igor`)
+
+                                            console.log(`User was created`);
+
+                                            Ivan.transferMoney({
+
+                                                to: 'Igor',
+
+                                                amount: 10000
+
+                                            }, (err,data)=>{
+
+                                                if (err) {
+
+                                                    console.log('Error during transfer money')
+
+                                                } else {
+
+                                                    console.log(`Money transfed to Igor`)
+
+                                                }
+
+                                            }
+
+                                            );
+
                                         }
+
                                     }
-                                    );
+
+                                    )
 
                                 }
-                            }
-                            );
-                        }
-                        ;
-                    }
-                    )
-                }
-            }
-            )
-        }
-    }
-    );
 
-    Igor.createUser((err,data)=>{
-        if (err) {
-            console.log(`Error during creating User`)
-        } else {
-            console.log(`User was created`);
+                            }
+
+                            );
+
+                        }
+
+                        ;
+
+                    }
+
+                    )
+
+                }
+
+            }
+
+            )
+
         }
+
     }
-    , )
+
+    );
 
 }
 
 main();
+
+        
+
+
+        
+
+
+ 
