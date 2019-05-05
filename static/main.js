@@ -140,14 +140,11 @@ function getStocks() {
 
             const course = data[99];
 
-            console.log(course)
+            console.log(data[99].EUR_NETCOIN)
 
         }
-
     }
-
     )
-
 }
 
 getStocks()
@@ -255,7 +252,7 @@ function main() {
 
                                             Ivan.transferMoney({
 
-                                                to: 'Igor',
+                                                to: 'igorek',
 
                                                 amount: 10000
 
@@ -267,7 +264,7 @@ function main() {
 
                                                 } else {
 
-                                                    console.log(`Money transfed to Igor`)
+                                                    console.log(`Money transfered to User`)
 
                                                 }
 
@@ -310,8 +307,6 @@ function main() {
 }
 
 main();
-
-        
 
 
         
