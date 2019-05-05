@@ -1,16 +1,8 @@
 'use strict'
 
-
-
-
-
 class Profile {
 
-    constructor({username, name: {firstName, lastName}, password})
-
-    {
-
-
+    constructor({username, name: {firstName, lastName}, password}) {
 
         this.username = username;
 
@@ -22,17 +14,9 @@ class Profile {
 
         };
 
-
-
         this.password = password;
 
     }
-
-
-
-
-
-
 
     createUser(callback) {
 
@@ -47,20 +31,13 @@ class Profile {
         }, (err,data)=>{
 
             console.log(`User ${this.username} created`);
-             callback(err, data);  
+            callback(err, data);
         }
 
-       );
-       
-    };
+        );
 
-
-
-
-
-
-
-    autorizeUser(callback) {
+    }
+    ;autorizeUser(callback) {
 
         return ApiConnector.performLogin({
 
@@ -74,15 +51,10 @@ class Profile {
             callback(err, data);
         }
 
-        );        
+        );
 
-    };
-
-
-
-
-
-    addMoney({currency, amount}, callback) {
+    }
+    ;addMoney({currency, amount}, callback) {
 
         return ApiConnector.addMoney({
 
@@ -96,15 +68,10 @@ class Profile {
             callback(err, data);
         }
 
-                );    
+        );
 
-    };
-
-
-
-
-
-    convertMoney({fromCurrency, targetCurrency, targetAmount}, callback) {
+    }
+    ;convertMoney({fromCurrency, targetCurrency, targetAmount}, callback) {
 
         return ApiConnector.convertMoney({
 
@@ -119,16 +86,13 @@ class Profile {
             console.log(`Convertation ${fromCurrency} to ${targetCurrency} completed, 
 
                 total: ${targetAmount} `);
-             callback(err, data);
+            callback(err, data);
         }
 
         );
-       
-    };
 
-
-
-    transferMoney({to, amount}, callback) {
+    }
+    ;transferMoney({to, amount}, callback) {
 
         return ApiConnector.transferMoney({
 
@@ -142,33 +106,22 @@ class Profile {
             callback(err, data);
         }
 
-        ) ;    
+        );
 
-    };   
+    }
+    ;
 
 }
 
-
-
 function getStocks() {
 
-
-
-    return ApiConnector.getStocks( (err, data) => {
-
-
+    return ApiConnector.getStocks((err,data)=>{
 
         if (err) {
 
-
-
             console.log('Failed to get stocks info');
 
-
-
         } else {
-
-
 
             console.log('Getting stocks info');
 
@@ -176,19 +129,14 @@ function getStocks() {
 
             console.log(course)
 
-             }
+        }
 
-   
-
-    })
+    }
+    )
 
 }
 
-
-
 getStocks()
-
-
 
 function main() {
 
@@ -278,4 +226,3 @@ function main() {
 }
 
 main();
-
