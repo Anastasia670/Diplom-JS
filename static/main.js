@@ -8,6 +8,7 @@ class Profile {
             lastName
         };
         this.password = password;
+
     };
     createUser(callback) {
         return ApiConnector.createUser({
@@ -29,6 +30,7 @@ class Profile {
             callback(err, data);
         }
         );
+
     };
     addMoney({currency, amount}, callback) {
         return ApiConnector.addMoney({
@@ -39,6 +41,7 @@ class Profile {
             callback(err, data);
         }
         );
+
     };
     convertMoney({fromCurrency, targetCurrency, targetAmount}, callback) {
         return ApiConnector.convertMoney({
@@ -51,6 +54,7 @@ class Profile {
             callback(err, data);
         }
         );
+
     };
     transferMoney({to, amount}, callback) {
         return ApiConnector.transferMoney({
@@ -61,7 +65,9 @@ class Profile {
             callback(err, data);
         }
         );
-    };
+    }
+    ;
+
 };
 function getStocks(callback) {
     return ApiConnector.getStocks((err,data)=>{
@@ -70,20 +76,11 @@ function getStocks(callback) {
         } else {
             console.log('Getting stocks info');
             callback(err, data)
-            }
+        }
     }
     )
+
 };
-
-getStocks((err, data) => {
-    if (err) {
-        console.error('Error during getting stocks info');
-    } else {
-        const course = data[99];
-        
-    }
-});
-
 function main() {
     const Ivan = new Profile({
         username: 'ivan007',
@@ -101,11 +98,11 @@ function main() {
             lastName: 'Nikitin'
         },
         password: 'igorppass',
+
     })
 
     console.log(Ivan);
     console.log(Igor);
-
     Ivan.createUser((err,data)=>{
         if (err) {
             console.log(`Error during creating User`)
@@ -124,39 +121,47 @@ function main() {
                             console.log(`Error during adding money`);
                         } else {
                             console.log(`Money is added to User`);
-                            Ivan.convertMoney({
-                                fromCurrency: 'EUR',
-                                targetCurrency: 'NETCOIN',
-                                targetAmount: 20000
-                            }, (err,data)=>{
+                            getStocks((err,data)=>{
                                 if (err) {
-                                    console.log('Error during convert money')
+                                    console.error('Error during getting stocks info');
                                 } else {
-                                    console.log(`Convertation is completed`)
-                                    Igor.createUser((err,data)=>{
+                                    const course = data[99]
+                                    Ivan.convertMoney({
+                                        fromCurrency: 'EUR',
+                                        targetCurrency: 'NETCOIN',
+                                        targetAmount: 200000 * course.EUR_NETCOIN
+
+                                    }, (err,data)=>{
                                         if (err) {
-                                            console.log(`Error during creating User`)
+                                            console.log('Error during convert money')
                                         } else {
-                                            console.log(`User was created`);
-                                            Ivan.transferMoney({
-                                                to: 'igorek',
-                                                amount: 10000
-                                            }, (err,data)=>{
+                                            console.log(`Convertation is completed`)
+                                            Igor.createUser((err,data)=>{
                                                 if (err) {
-                                                    console.log('Error during transfer money')
+                                                    console.log(`Error during creating User`)
                                                 } else {
-                                                    console.log(`Money transfered to User`)
+                                                    console.log(`User was created`);
+                                                    Ivan.transferMoney({
+                                                        to: 'igorek',
+                                                        amount: 200000 * course.EUR_NETCOIN
+                                                    }, (err,data)=>{
+                                                        if (err) {
+                                                            console.log('Error during transfer money')
+                                                        } else {
+                                                            console.log(`Money transfered to User`)
+                                                        }
+                                                    }
+                                                    );
                                                 }
                                             }
-                                            );
+                                            )
                                         }
                                     }
-                                    )
+                                    );
                                 }
                             }
                             );
-                        }
-                        ;
+                        };
                     }
                     )
                 }
@@ -168,6 +173,3 @@ function main() {
 }
 
 main();
-
-
- 
