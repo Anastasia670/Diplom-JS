@@ -63,19 +63,26 @@ class Profile {
         );
     };
 };
-function getCourse() {
+function getStocks(callback) {
     return ApiConnector.getStocks((err,data)=>{
         if (err) {
             console.log('Failed to get stocks info');
         } else {
             console.log('Getting stocks info');
-            const course = data[99].EUR_NETCOIN;
-        }
+            callback(err, data)
+            }
     }
     )
 };
 
-getCourse()
+getStocks((err, data) => {
+    if (err) {
+        console.error('Error during getting stocks info');
+    } else {
+        const course = data[99];
+        
+    }
+});
 
 function main() {
     const Ivan = new Profile({
