@@ -61,7 +61,7 @@ class Profile {
             to,
             amount
         }, (err,data)=>{
-            console.log(`${amount} transfered to ${to}`);
+            console.log(`${amount} NETCOIN transfered to ${to}`);
             callback(err, data);
         }
         );
