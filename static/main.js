@@ -56,12 +56,12 @@ class Profile {
         );
 
     };
-    transferMoney({to, amount}, callback) {
+    transferMoney({to, targetCurrency, amount}, callback) {
         return ApiConnector.transferMoney({
             to,
             amount
         }, (err,data)=>{
-            console.log(`${amount} NETCOIN transfered to ${to}`);
+            console.log(`${amount} ${targetCurrency} transfered to ${to}`);
             callback(err, data);
         }
         );
@@ -143,6 +143,7 @@ function main() {
                                                     console.log(`User was created`);
                                                     Ivan.transferMoney({
                                                         to: 'igorek',
+                                                        targetCurrency: 'NETCOIN',
                                                         amount: 200000 * course.EUR_NETCOIN
                                                     }, (err,data)=>{
                                                         if (err) {
