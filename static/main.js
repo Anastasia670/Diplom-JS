@@ -7,10 +7,8 @@ class Profile {
             firstName,
             lastName
         };
-
         this.password = password;
-    }
-
+    };
     createUser(callback) {
         return ApiConnector.createUser({
             username: this.username,
@@ -20,26 +18,19 @@ class Profile {
             console.log(`User ${this.username} created`);
             callback(err, data);
         }
-
         );
-    }
-
-    ;autorizeUser(callback) {
-
+    };
+    autorizeUser(callback) {
         return ApiConnector.performLogin({
             username: this.username,
             password: this.password
-
         }, (err,data)=>{
             console.log(`Autorisation for ${this.username} is completed`);
             callback(err, data);
-
         }
-
         );
-    }
-
-    ;addMoney({currency, amount}, callback) {
+    };
+    addMoney({currency, amount}, callback) {
         return ApiConnector.addMoney({
             currency,
             amount
@@ -47,11 +38,9 @@ class Profile {
             console.log(`Adding ${amount} of ${currency} to ${this.username}`);
             callback(err, data);
         }
-
         );
-    }
-
-    ;convertMoney({fromCurrency, targetCurrency, targetAmount}, callback) {
+    };
+    convertMoney({fromCurrency, targetCurrency, targetAmount}, callback) {
         return ApiConnector.convertMoney({
             fromCurrency,
             targetCurrency,
@@ -60,27 +49,20 @@ class Profile {
             console.log(`Convertation ${fromCurrency} to ${targetCurrency} completed, 
                 total: ${targetAmount} `);
             callback(err, data);
-
         }
         );
-
-    }
-
-    ;transferMoney({to, amount}, callback) {
-
+    };
+    transferMoney({to, amount}, callback) {
         return ApiConnector.transferMoney({
             to,
             amount
         }, (err,data)=>{
-
             console.log(`${amount} transfered to ${to}`);
             callback(err, data);
-
         }
         );
-    } ;
-
-}
+    };
+};
 function getCourse() {
     return ApiConnector.getStocks((err,data)=>{
         if (err) {
@@ -88,17 +70,12 @@ function getCourse() {
         } else {
             console.log('Getting stocks info');
             const course = data[99].EUR_NETCOIN;
-            //проверка
-            console.log(course)
-            //return course
-            //callback(err, course)
-           }      
+        }
     }
     )
-}
+};
 
 getCourse()
-
 
 function main() {
     const Ivan = new Profile({
@@ -109,6 +86,7 @@ function main() {
         },
         password: 'ivanspass',
     })
+
     const Igor = new Profile({
         username: 'igorek',
         name: {
@@ -125,7 +103,7 @@ function main() {
         if (err) {
             console.log(`Error during creating User`)
         } else {
-         console.log(`User was created`);
+            console.log(`User was created`);
             Ivan.autorizeUser((err,data)=>{
                 if (err) {
                     console.log(`Error during autorization Uses`)
@@ -148,7 +126,6 @@ function main() {
                                     console.log('Error during convert money')
                                 } else {
                                     console.log(`Convertation is completed`)
-                                    console.log(data);
                                     Igor.createUser((err,data)=>{
                                         if (err) {
                                             console.log(`Error during creating User`)
@@ -184,7 +161,6 @@ function main() {
 }
 
 main();
-        
 
 
  
